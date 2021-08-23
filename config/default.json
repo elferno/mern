@@ -3,18 +3,6 @@
 		"port": 3000
 	},
 	"Api": {
-		"auth": {
-			"prefix"  : "/api/auth",
-			"register": "/register",
-			"login"   : "/login"
-		}
-	},
-	"DB": {
-		"url": "mongodb+srv://sql:iddqd123mongo123iddqd@cluster0.8tdgk.mongodb.net/app?retryWrites=true&w=majority",
-		"prefs": {
-			"useCreateIndex": true,
-			"useNewUrlParser": true,
-			"useUnifiedTopology": true
-		}
+		"user": "/api/user"
 	}
 }
