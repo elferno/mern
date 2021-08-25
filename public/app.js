@@ -15,7 +15,7 @@ const App = {
 		//const deleteUser = await request('/api/user/24', 'DELETE')
 		//console.log('deleteUser:', deleteUser)
 
-		const login = await request('/api/login', 'POST', {login: 'els', pass: '123'})
+		const login = await request('/api/login', 'POST', {login: 'el', pass: '123'})
 		console.log('login:', login)
 	}
 }
