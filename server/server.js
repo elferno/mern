@@ -6,17 +6,16 @@ import watch from 'watch'
 import {createServer} from 'http'
 import {join, resolve} from 'path'
 import UserRouter from './routers/user.router.js'
+import LoginRouter from './routers/login.router.js'
 
 // const
 const SERVER = {
 	port: config.get('Server.port') || 3000,
 	started_log: () => console.log(`server is raised on port ${SERVER.port} ...`),
 }
-const API = {
-	user: config.get('Api.user')
-}
 const ROUTER = {
-	user: UserRouter
+	user : UserRouter,
+	login: LoginRouter,
 }
 
 // var
@@ -29,7 +28,8 @@ app.use(express.json())
 app.use(express.static(baseDir))
 
 // routing
-app.use(API.user, ROUTER.user)
+app.use('/api', ROUTER.user)
+app.use('/api', ROUTER.login)
 
 // home page
 app.get('/', (req, res) => res.sendFile(homePage))

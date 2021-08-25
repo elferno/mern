@@ -1,8 +1,5 @@
 {
 	"Server": {
 		"port": 3000
-	},
-	"Api": {
-		"user": "/api/user"
 	}
 }
