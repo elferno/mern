@@ -1,0 +1,82 @@
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--mm);
+  box-sizing: border-box;
+}
+
+.header {
+  font: var(--font-B);
+  color: var(--light);
+  padding: var(--mm) 0;
+  margin-bottom: var(--mm);
+  border-bottom: 1px dotted var(--gray);
+}
+
+input {
+  height: 50px;
+  border: 0;
+  box-shadow: 0 0 0 0 var(--light);
+
+  font: var(--font-S);
+  color: var(--dark);
+  padding: 0 0 5px var(--m);
+
+  box-sizing: border-box;
+  border-radius: var(--r);
+
+  overflow: hidden;
+
+  transition: all 0.1s ease-in-out;
+}
+
+input[type="password"] {
+  padding-bottom: 3px;
+  font: small-caption;
+  font-size: 26px;
+}
+
+input:focus {
+  box-shadow: 0 0 10px 0 var(--light);
+}
+
+.button {
+  height: 50px;
+  padding: 0 var(--mm);
+  font: var(--font-S);
+  line-height: 47px;
+  color: var(--light);
+  letter-spacing: 0.5px;
+  border-radius: var(--r);
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.1s ease-in-out;
+  user-select: none;
+}
+
+.button_red {
+  background-color: var(--red);
+}
+.button_red:hover {
+  box-shadow: 0 0 5px 0 var(--light-red);
+  background-color: var(--light-red);
+  color: var(--red);
+}
+
+.button_blue {
+  background-color: var(--blue);
+}
+.button_blue:hover {
+  box-shadow: 0 0 5px 0 var(--light-blue);
+  background-color: var(--light-blue);
+  color: var(--blue);
+}
+
+.button[disabled] {
+  color: var(--dark);
+  background-color: var(--gray);
+  box-shadow: none;
+  cursor: default;
+}

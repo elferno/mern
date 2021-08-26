@@ -1,0 +1,39 @@
+html,
+body,
+p,
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+a,
+input {
+  outline: none;
+}
+
+html,
+body {
+  --max-w: 919px;
+
+  --r: 3px;
+  --rr: 7px;
+
+  --m: 15px;
+  --mm: 30px;
+  --mmm: 60px;
+
+  --dark: rgb(17, 17, 17);
+  --gray: rgb(100, 100, 100);
+  --light: rgb(225, 225, 225);
+
+  --red: rgb(136, 60, 60);
+  --light-red: rgb(233, 185, 185);
+  --blue: rgb(61, 60, 136);
+  --light-blue: rgb(185, 190, 233);
+
+  --font-B: normal 29px/23px Verdana, sans-serif;
+  --font-M: normal 21px/15px Verdana, sans-serif;
+  --font-S: normal 17px/13px Verdana, sans-serif;
+
+  background-color: var(--dark);
+}

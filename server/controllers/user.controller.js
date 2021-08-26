@@ -11,7 +11,7 @@ class Controller {
 			return false
 
 		// read data
-		const {login, pass} = req.body
+		const { login, pass } = req.body
 		const password = await bcrypt.hash(pass, 12)
 
 		// try add user to db
@@ -29,7 +29,7 @@ class Controller {
 		response(
 			res,
 			[201, new_user.rows[0]],
-			[400, {error: `user with login '${login}' already exists`}]
+			[400, {error: [`user with login '${login}' already exists`]}]
 		)
 	}
 	async getUser(req, res) {
@@ -46,13 +46,13 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: `no user with ID '${id}' found`}]
+			[404, {error: [`no user with ID '${id}' found`]}]
 		)
 	}
 	async updateUser(req, res) {
 		// read data
 		const id = req.params.id
-		const {login, pass, links} = req.body
+		const { login, pass, links } = req.body
 		const password = await bcrypt.hash(pass, 12)
 
 		// update user
@@ -65,7 +65,7 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: `no user with ID '${id}' found`}]
+			[404, {error: [`no user with ID '${id}' found`]}]
 		)
 	}
 	async deleteUser(req, res) {
@@ -82,7 +82,7 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: `no user with ID '${id}' found`}]
+			[404, {error: [`no user with ID '${id}' found`]}]
 		)
 	}
 }

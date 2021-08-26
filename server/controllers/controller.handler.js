@@ -13,12 +13,14 @@ const response = (
 }
 
 const validate = (req, res) => {
-	const error = validationResult(req)
+	const errorHandler = validationResult(req)
 
-	if (!error.isEmpty()) {
+	if (!errorHandler.isEmpty()) {
+		const error = errorHandler.array().map(e => e.msg);
+		console.log(error)
 		response(
 			res,
-			[400, error.array()]
+			[400, {error}]
 		)
 		return false
 	}

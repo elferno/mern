@@ -25,7 +25,7 @@ class Controller {
 		if (user.rows.length && ! await bcrypt.compare(pass, user.rows[0].pass))
 			return response(
 				res,
-				[400, {error: `wrong login or password`}]
+				[400, {error: [`wrong login or password`]}]
 			)
 
 		// authorized: create token

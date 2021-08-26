@@ -3,13 +3,13 @@ import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 // pages
-import { Auth } from '../pages/Auth'
-import { Links } from '../pages/Links'
-import { Create } from '../pages/Create'
-import { Detail } from '../pages/Detail'
+import { Auth } from '../pages/Auth.jsx'
+import { Links } from '../pages/Links.jsx'
+import { Create } from '../pages/Create.jsx'
+import { Detail } from '../pages/Detail.jsx'
 
 // routes hook
-export const UseRoutes = isAuth => {
+export const useRoutes = isAuth => {
 	return isAuth
 		? (
 			<Switch>

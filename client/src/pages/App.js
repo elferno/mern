@@ -3,15 +3,18 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 // hooks
-import { UseRoutes } from '../hooks/UseRoutes.hook'
+import { useRoutes } from '../hooks/routes.hook.jsx'
 //import request from '../hooks/request.js'
 
 // styles
-import css from '../styles/Index.module.css'
+import '../styles/Default.module.css'
 
 // component
 function App() {
-  const routes = UseRoutes(false)
+  const routes = useRoutes(false)
+
+  //const login = request('/api/login', 'POST', {login: 'el', pass: '123'})
+  //console.log(login)
   //const createUser = await request('/api/user', 'POST', {login: 'el', pass: '123'})
   //console.log('createUser:', createUser)
 
@@ -30,7 +33,7 @@ function App() {
   */
   return (
     <BrowserRouter>
-      <div className={css.block}>
+      <div>
         {routes}
       </div>
     </BrowserRouter>
