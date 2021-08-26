@@ -1,5 +1,16 @@
 {
 	"Server": {
-		"port": 3000
+		"port": 8080
+	},
+	"JWT": {
+		"secret": "123?qwerty?",
+		"expires": "1h"
+	},
+	"DB": {
+		"user": "postgres",
+		"pass": "postgrez",
+		"host": "localhost",
+		"port": "5432",
+		"database": "mern"
 	}
 }

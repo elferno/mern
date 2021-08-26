@@ -1,5 +1,7 @@
 // imports
 import bcrypt from 'bcryptjs'
+import config from 'config'
+import jwt from 'jsonwebtoken'
 import db from '../../pestgre/db.js'
 import {response, validate} from './controller.handler.js'
 
@@ -19,15 +21,24 @@ class Controller {
 			[login]
 		)
 
-		// if password doesn't match - drop selected user
+		// check if password doesn't match
 		if (user.rows.length && ! await bcrypt.compare(pass, user.rows[0].pass))
-			user.rows = []
+			return response(
+				res,
+				[400, {error: `wrong login or password`}]
+			)
 
-		// response user: {id, login, pass (hashed), links}
+		// authorized: create token
+		const token = jwt.sign(
+			{userID: user.rows[0].id},
+			config.get('JWT.secret'),
+			{expiresIn: config.get('JWT.expires')}
+		)
+
+		// return token
 		response(
 			res,
-			[200, user.rows[0]],
-			[400, {error: `wrong login or password`}]
+			[200, {token}]
 		)
 	}
 }

@@ -5,8 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "front": "node server/server.js",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -20,9 +21,8 @@
     "config": "^3.3.6",
     "express": "^4.17.1",
     "express-validator": "^6.12.1",
-    "pg": "^8.7.1",
-    "reload": "^3.2.0",
-    "watch": "^1.0.2"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "concurrently": "^6.2.1",
