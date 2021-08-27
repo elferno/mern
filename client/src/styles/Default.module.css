@@ -33,12 +33,17 @@ body {
   --light-red: rgb(233, 185, 185);
   --blue: rgb(61, 60, 136);
   --light-blue: rgb(185, 190, 233);
+  --green: rgb(60, 136, 66);
+  --light-green: rgb(185, 233, 189);
 
   --bright-red: #ff075b;
   --bright-green: #1aff22;
 
   --bright-blue: #00ffcc;
   --bright-purple: #d400d4;
+
+  --aqua: #b4e9de;
+  --light-aqua: #e1f7f2;
 
   --font-B: normal 29px/23px Poppins, sans-serif;
   --font-M: normal 21px/15px Poppins, sans-serif;

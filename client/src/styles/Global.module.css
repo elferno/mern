@@ -8,30 +8,8 @@
 
 .header {
   font: var(--font-B);
-  color: var(--light);
+  color: var(--bright-green);
   padding: var(--mm) 0;
   margin-bottom: var(--mm);
-  border-bottom: 1px dotted var(--gray);
-}
-
-input {
-  height: 50px;
-  border: 0;
-  box-shadow: 0 0 0 0 var(--light);
-
-  font: var(--font-S);
-  color: var(--dark);
-  padding: 0 0 5px var(--m);
-
-  box-sizing: border-box;
-  border-top: 3px solid var(--dark);
-  border-bottom: 3px solid var(--dark);
-
-  overflow: hidden;
-
-  transition: all 0.1s ease-in-out;
-}
-
-input:focus {
-  box-shadow: 0 0 10px 0 var(--light);
+  border-bottom: 1px dotted var(--green);
 }

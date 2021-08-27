@@ -21,16 +21,19 @@ class Controller {
 			[login]
 		)
 
-		// check if password doesn't match
-		if (user.rows.length && ! await bcrypt.compare(pass, user.rows[0].pass))
+		// check if password doesn't match OR no user selected
+		const userExists = user.rows.length
+		const passwordMatch = userExists && await bcrypt.compare(pass, user.rows[0].pass)
+		if (!userExists || !passwordMatch)
 			return response(
 				res,
 				[400, {error: [`wrong login or password`]}]
 			)
 
 		// authorized: create token
+		const userID = user.rows[0].id
 		const token = jwt.sign(
-			{userID: user.rows[0].id},
+			{userID},
 			config.get('JWT.secret'),
 			{expiresIn: config.get('JWT.expires')}
 		)
@@ -38,7 +41,7 @@ class Controller {
 		// return token
 		response(
 			res,
-			[200, {token}]
+			[200, {token, userID}]
 		)
 	}
 }

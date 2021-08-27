@@ -5,7 +5,13 @@ export const useHttp = () => {
 	const [httpLoading, setHttpLoading] = useState(false)
 	const [httpError, setHttpError] = useState()
 
-	const httpRequest = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
+	const httpRequest = useCallback(async (
+		url,
+		method = 'GET',
+		body = null,
+		headers = {},
+		callback = false
+	) => {
 		// set loading TRUE
 		setHttpLoading(true)
 
@@ -23,19 +29,21 @@ export const useHttp = () => {
 		})
 
 		// set loading FALSE
-		setHttpLoading(false)
+		if (!callback)
+			setHttpLoading(false)
 
 		// if server returns error
-		if (response.status !== 200 && response.status !== 201) {
+		if (response.status === 400 || response.status === 404) {
 			setHttpError((await response.json()).error.map((e, k) => <p key={k}>{e}</p>))
 			return false
 		}
 
 		// return response
-		return response.json()
+		if (callback) callback()
+		else return response.json()
 	}, [])
-
-	const clearHttpError = () => setHttpError(null)
+	
+	const clearHttpError = useCallback(() => setHttpError(null), []);
 
 	return {httpLoading, httpRequest, httpError, clearHttpError}
 }

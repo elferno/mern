@@ -1,8 +1,12 @@
 // system
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+
+// context
+import { AuthContext } from '../context/AuthContext.jsx'
 
 // components
 import { Button } from '../components/Button.jsx'
+import { Input } from '../components/Input.jsx'
 
 // hooks
 import { useHttp } from '../hooks/http.hook.jsx'
@@ -14,7 +18,10 @@ const css = {...g_css, ...l_css}
 
 // export component
 export const Auth = () => {
-	// http requests
+	// context
+	const auth = useContext(AuthContext)
+
+	// http requests hook
 	const { httpLoading, httpRequest, httpError, clearHttpError } = useHttp()
 
 	// local state for login/pass inputs
@@ -31,43 +38,59 @@ export const Auth = () => {
 		})
 	}
 	const registerHandler = async () => {
+		// dont execute while loading
 		if (httpLoading) return
+		// clear errors on new call
 		clearHttpError()
-		const createUser = await httpRequest('/api/user', 'POST', {...form})
- 		console.log('createUser:', createUser)
+		// create new user and call login function after
+		await httpRequest('/api/user', 'POST', {...form}, {}, () => loginHandler())
 	}
 	const loginHandler = async () => {
+		// dont execute while loading
 		if (httpLoading) return
+		// clear errors on new call
 		clearHttpError()
-		const loginUser = await httpRequest('/api/login', 'POST', {...form})
- 		console.log('loginUser:', loginUser)
+		// get auth data
+		const _auth = await httpRequest('/api/login', 'POST', {...form})
+		// authenticate user
+ 		if (_auth) auth.login(_auth.token, _auth.userID)
 	}
 
 	// return JSX
 	return (
 		<div className={css.container}>
 			<h1 className={css.header}>Auth Page</h1>
-			<form className={css.login_container}>
-				<input
+			<form className={css.login_container} autoComplete="new-password">
+				<Input
 					type="text"
 					id="login"
-					name="login"
-					autoComplete="none"
+					focus={clearHttpError}
+					handler={inputHandler}
 					placeholder="login"
-					onFocus={clearHttpError}
-					onChange={inputHandler}
 				/>
-				<input
-					type="password"
+				<Input
+					type="text"
 					id="pass"
-					name="pass"
-					autoComplete="none"
+					focus={clearHttpError}
+					handler={inputHandler}
 					placeholder="password"
-					onFocus={clearHttpError}
-					onChange={inputHandler}
 				/>
-				<Button type="red" click={loginHandler} disabled={httpLoading}>enter</Button>
-				<Button type="blue" click={registerHandler} disabled={httpLoading}>register</Button>
+				
+				<Button 
+					type="red" 
+					click={loginHandler} 
+					disabled={httpLoading}
+				>
+					enter
+				</Button>
+
+				<Button 
+					type="blue" 
+					click={registerHandler} 
+					disabled={httpLoading}
+				>
+					register
+				</Button>
 			</form>
 			<div className={css.login_error}>{httpError}</div>
 		</div>
