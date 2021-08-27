@@ -1,6 +1,9 @@
 // system
 import React, { useState } from 'react'
 
+// components
+import { Button } from '../components/Button.jsx'
+
 // hooks
 import { useHttp } from '../hooks/http.hook.jsx'
 
@@ -21,7 +24,7 @@ export const Auth = () => {
 	})
 
 	// handlers
-	const changeHandler = event => {
+	const inputHandler = event => {
 		setForm({
 			...form,
 			[event.target.name]: event.target.value
@@ -29,11 +32,13 @@ export const Auth = () => {
 	}
 	const registerHandler = async () => {
 		if (httpLoading) return
+		clearHttpError()
 		const createUser = await httpRequest('/api/user', 'POST', {...form})
  		console.log('createUser:', createUser)
 	}
 	const loginHandler = async () => {
 		if (httpLoading) return
+		clearHttpError()
 		const loginUser = await httpRequest('/api/login', 'POST', {...form})
  		console.log('loginUser:', loginUser)
 	}
@@ -50,7 +55,7 @@ export const Auth = () => {
 					autoComplete="none"
 					placeholder="login"
 					onFocus={clearHttpError}
-					onChange={changeHandler}
+					onChange={inputHandler}
 				/>
 				<input
 					type="password"
@@ -59,22 +64,10 @@ export const Auth = () => {
 					autoComplete="none"
 					placeholder="password"
 					onFocus={clearHttpError}
-					onChange={changeHandler}
+					onChange={inputHandler}
 				/>
-				<div 
-					className={`${css.button} ${css.button_red}`}
-					onClick={loginHandler}
-					disabled={httpLoading}
-				>
-					enter
-				</div>
-				<div 
-					className={`${css.button} ${css.button_blue}`}
-					onClick={registerHandler}
-					disabled={httpLoading}
-				>
-					register
-				</div>
+				<Button type="red" click={loginHandler} disabled={httpLoading}>enter</Button>
+				<Button type="blue" click={registerHandler} disabled={httpLoading}>register</Button>
 			</form>
 			<div className={css.login_error}>{httpError}</div>
 		</div>

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 html,
 body,
 p,
@@ -22,7 +24,8 @@ body {
   --mm: 30px;
   --mmm: 60px;
 
-  --dark: rgb(17, 17, 17);
+  --black: rgb(0, 0, 0);
+  --dark: rgb(9, 14, 36);
   --gray: rgb(100, 100, 100);
   --light: rgb(225, 225, 225);
 
@@ -31,9 +34,15 @@ body {
   --blue: rgb(61, 60, 136);
   --light-blue: rgb(185, 190, 233);
 
-  --font-B: normal 29px/23px Verdana, sans-serif;
-  --font-M: normal 21px/15px Verdana, sans-serif;
-  --font-S: normal 17px/13px Verdana, sans-serif;
+  --bright-red: #ff075b;
+  --bright-green: #1aff22;
+
+  --bright-blue: #00ffcc;
+  --bright-purple: #d400d4;
+
+  --font-B: normal 29px/23px Poppins, sans-serif;
+  --font-M: normal 21px/15px Poppins, sans-serif;
+  --font-S: normal 17px/13px Poppins, sans-serif;
 
   background-color: var(--dark);
 }

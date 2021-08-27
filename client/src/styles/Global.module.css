@@ -24,59 +24,14 @@ input {
   padding: 0 0 5px var(--m);
 
   box-sizing: border-box;
-  border-radius: var(--r);
+  border-top: 3px solid var(--dark);
+  border-bottom: 3px solid var(--dark);
 
   overflow: hidden;
 
   transition: all 0.1s ease-in-out;
 }
 
-input[type="password"] {
-  padding-bottom: 3px;
-  font: small-caption;
-  font-size: 26px;
-}
-
 input:focus {
   box-shadow: 0 0 10px 0 var(--light);
-}
-
-.button {
-  height: 50px;
-  padding: 0 var(--mm);
-  font: var(--font-S);
-  line-height: 47px;
-  color: var(--light);
-  letter-spacing: 0.5px;
-  border-radius: var(--r);
-  text-transform: uppercase;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.1s ease-in-out;
-  user-select: none;
-}
-
-.button_red {
-  background-color: var(--red);
-}
-.button_red:hover {
-  box-shadow: 0 0 5px 0 var(--light-red);
-  background-color: var(--light-red);
-  color: var(--red);
-}
-
-.button_blue {
-  background-color: var(--blue);
-}
-.button_blue:hover {
-  box-shadow: 0 0 5px 0 var(--light-blue);
-  background-color: var(--light-blue);
-  color: var(--blue);
-}
-
-.button[disabled] {
-  color: var(--dark);
-  background-color: var(--gray);
-  box-shadow: none;
-  cursor: default;
 }
