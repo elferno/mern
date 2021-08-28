@@ -16,11 +16,10 @@ const validate = (req, res) => {
 	const errorHandler = validationResult(req)
 
 	if (!errorHandler.isEmpty()) {
-		const error = errorHandler.array().map(e => e.msg);
-		console.log(error)
+		const status = errorHandler.array().map(e => e.msg);
 		response(
 			res,
-			[400, {error}]
+			[400, {status}]
 		)
 		return false
 	}

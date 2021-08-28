@@ -30,16 +30,10 @@
 
 .login_error {
   font: var(--font-S);
-  color: var(--bright-purple);
   line-height: 0;
   text-align: center;
 }
 
 .login_error p:not(p:last-child) {
   margin-bottom: var(--mm);
-}
-
-.chrome_fix {
-  position: absolute;
-  top: -10000px;
 }

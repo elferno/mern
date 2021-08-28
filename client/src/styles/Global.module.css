@@ -9,7 +9,7 @@
 .header {
   font: var(--font-B);
   color: var(--bright-green);
-  padding: var(--mm) 0;
+  padding: calc(var(--mm) - 5px) 0;
   margin-bottom: var(--mm);
   border-bottom: 1px dotted var(--green);
 }

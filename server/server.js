@@ -1,7 +1,9 @@
-// imports
+// system
 import config from 'config'
 import express from 'express'
-import {join, resolve} from 'path'
+
+// import routers
+import LinkRouter from './routers/link.router.js'
 import UserRouter from './routers/user.router.js'
 import LoginRouter from './routers/login.router.js'
 
@@ -11,8 +13,9 @@ const SERVER = {
 	started_log: () => console.log(`server is raised on port ${SERVER.port} ...`),
 }
 const ROUTER = {
+	link : LinkRouter,
 	user : UserRouter,
-	login: LoginRouter,
+	login: LoginRouter
 }
 
 // var
@@ -22,6 +25,7 @@ const app = express()
 app.use(express.json())
 
 // routing
+app.use('/api', ROUTER.link)
 app.use('/api', ROUTER.user)
 app.use('/api', ROUTER.login)
 

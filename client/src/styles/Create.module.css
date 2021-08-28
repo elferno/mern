@@ -1,0 +1,28 @@
+.create_container {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: var(--mm);
+
+  padding: var(--mm) 0;
+  margin-bottom: var(--mm);
+  border-top: 1px dotted var(--aqua);
+  border-bottom: 1px dotted var(--aqua);
+}
+
+@media (max-width: 780px) {
+  .create_container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.create_status {
+  font: var(--font-S);
+  line-height: 0;
+  text-align: center;
+}
+
+.create_status p:not(p:last-child) {
+  margin-bottom: var(--mm);
+}

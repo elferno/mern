@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import config from 'config'
 import jwt from 'jsonwebtoken'
 import db from '../../pestgre/db.js'
-import {response, validate} from './controller.handler.js'
+import { response, validate } from './controller.handler.js'
 
 // handle actions
 class Controller {
@@ -27,7 +27,7 @@ class Controller {
 		if (!userExists || !passwordMatch)
 			return response(
 				res,
-				[400, {error: [`wrong login or password`]}]
+				[400, {status: [`wrong login or password`]}]
 			)
 
 		// authorized: create token

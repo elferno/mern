@@ -1,0 +1,51 @@
+.navbar {
+  position: relative;
+}
+
+.navbar a {
+  position: relative;
+  color: var(--bright-blue);
+  margin: var(--mm);
+  margin-left: 0;
+  font: var(--font-S);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.1s;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.navbar a:hover {
+  color: var(--bright-green);
+}
+
+.navbar a b {
+  font-weight: 400;
+  position: absolute;
+  left: 1px;
+  top: 12px;
+  opacity: 0.35;
+  transform: rotate(180deg) scale(-1, 1) skew(-15deg);
+  filter: blur(1.5px);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.navbar a b:before {
+  content: "";
+  width: 100%;
+  height: 22px;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  background: linear-gradient(to top, transparent 15%, var(--dark));
+}
+
+.right_pannel {
+  float: right;
+}
+
+.right_pannel a {
+  margin-right: 0;
+}

@@ -25,7 +25,7 @@ body {
   --mmm: 60px;
 
   --black: rgb(0, 0, 0);
-  --dark: rgb(9, 14, 36);
+  --dark: rgb(7, 11, 24);
   --gray: rgb(100, 100, 100);
   --light: rgb(225, 225, 225);
 
@@ -36,18 +36,26 @@ body {
   --green: rgb(60, 136, 66);
   --light-green: rgb(185, 233, 189);
 
-  --bright-red: #ff075b;
-  --bright-green: #1aff22;
+  --bright-red: rgb(255, 7, 91);
+  --bright-green: rgb(26, 255, 34);
 
-  --bright-blue: #00ffcc;
-  --bright-purple: #d400d4;
+  --bright-blue: rgb(0, 255, 204);
+  --bright-purple: rgb(212, 0, 212);
 
-  --aqua: #b4e9de;
-  --light-aqua: #e1f7f2;
+  --aqua: rgb(76, 99, 94);
+  --light-aqua: rgb(225, 247, 242);
 
   --font-B: normal 29px/23px Poppins, sans-serif;
   --font-M: normal 21px/15px Poppins, sans-serif;
   --font-S: normal 17px/13px Poppins, sans-serif;
 
   background-color: var(--dark);
+}
+
+.status_error {
+  color: var(--bright-purple);
+}
+
+.status_success {
+  color: var(--bright-blue);
 }

@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react'
 export const useHttp = () => {
 
 	const [httpLoading, setHttpLoading] = useState(false)
-	const [httpError, setHttpError] = useState()
+	const [httpStatus, sethttpStatus] = useState()
 
 	const httpRequest = useCallback(async (
 		url,
@@ -28,22 +28,37 @@ export const useHttp = () => {
 			body
 		})
 
-		// set loading FALSE
-		if (!callback)
-			setHttpLoading(false)
+		// get server response data
+		const _response = await response.json()
+		const _status = response.status === 400 || response.status === 404
+			? 'error'
+			: 'success'
+		;
 
-		// if server returns error
-		if (response.status === 400 || response.status === 404) {
-			setHttpError((await response.json()).error.map((e, k) => <p key={k}>{e}</p>))
+		// push response status to state
+		if (_response.status)
+			sethttpStatus(_response.status
+				.map((e, k) => <p key={k} className={`status_${_status}`}>{e}</p>)
+			)
+
+		// if server returns error -> break here
+		if (_status === 'error') {
+			setHttpLoading(false)
 			return false
 		}
 
-		// return response
-		if (callback) callback()
-		else return response.json()
+		// if callback
+		if (callback) {
+			callback()
+			return false
+		}
+
+		// if OK return response
+		setHttpLoading(false)
+		return _response
 	}, [])
 	
-	const clearHttpError = useCallback(() => setHttpError(null), []);
+	const clearHttpStatus = useCallback(() => sethttpStatus(null), []);
 
-	return {httpLoading, httpRequest, httpError, clearHttpError}
+	return {httpLoading, httpRequest, httpStatus, clearHttpStatus}
 }

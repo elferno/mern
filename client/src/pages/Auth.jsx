@@ -22,7 +22,7 @@ export const Auth = () => {
 	const auth = useContext(AuthContext)
 
 	// http requests hook
-	const { httpLoading, httpRequest, httpError, clearHttpError } = useHttp()
+	const { httpLoading, httpRequest, httpStatus, clearHttpStatus } = useHttp()
 
 	// local state for login/pass inputs
 	const [form, setForm] = useState({
@@ -41,7 +41,7 @@ export const Auth = () => {
 		// dont execute while loading
 		if (httpLoading) return
 		// clear errors on new call
-		clearHttpError()
+		clearHttpStatus()
 		// create new user and call login function after
 		await httpRequest('/api/user', 'POST', {...form}, {}, () => loginHandler())
 	}
@@ -49,7 +49,7 @@ export const Auth = () => {
 		// dont execute while loading
 		if (httpLoading) return
 		// clear errors on new call
-		clearHttpError()
+		clearHttpStatus()
 		// get auth data
 		const _auth = await httpRequest('/api/login', 'POST', {...form})
 		// authenticate user
@@ -60,18 +60,18 @@ export const Auth = () => {
 	return (
 		<div className={css.container}>
 			<h1 className={css.header}>Auth Page</h1>
-			<form className={css.login_container} autoComplete="new-password">
+			<form className={css.login_container}>
 				<Input
 					type="text"
 					id="login"
-					focus={clearHttpError}
+					focus={clearHttpStatus}
 					handler={inputHandler}
 					placeholder="login"
 				/>
 				<Input
 					type="text"
 					id="pass"
-					focus={clearHttpError}
+					focus={clearHttpStatus}
 					handler={inputHandler}
 					placeholder="password"
 				/>
@@ -92,7 +92,7 @@ export const Auth = () => {
 					register
 				</Button>
 			</form>
-			<div className={css.login_error}>{httpError}</div>
+			<div className={css.login_error}>{httpStatus}</div>
 		</div>
 	)
 }

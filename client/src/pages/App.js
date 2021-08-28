@@ -10,7 +10,7 @@ import { useRoutes } from '../hooks/routes.hook.jsx'
 import { AuthContext } from '../context/AuthContext.jsx'
 
 // styles
-import '../styles/Default.module.css'
+import '../styles/Default.css'
 
 // component
 function App() {

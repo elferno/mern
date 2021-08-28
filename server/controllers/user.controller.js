@@ -29,7 +29,7 @@ class Controller {
 		response(
 			res,
 			[201, new_user.rows[0]],
-			[400, {error: [`user with login '${login}' already exists`]}]
+			[400, {status: [`user with login '${login}' already exists`]}]
 		)
 	}
 	async getUser(req, res) {
@@ -46,7 +46,7 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: [`no user with ID '${id}' found`]}]
+			[404, {status: [`no user with ID '${id}' found`]}]
 		)
 	}
 	async updateUser(req, res) {
@@ -65,7 +65,7 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: [`no user with ID '${id}' found`]}]
+			[404, {status: [`no user with ID '${id}' found`]}]
 		)
 	}
 	async deleteUser(req, res) {
@@ -82,7 +82,7 @@ class Controller {
 		response(
 			res,
 			[201, user.rows[0]],
-			[404, {error: [`no user with ID '${id}' found`]}]
+			[404, {status: [`no user with ID '${id}' found`]}]
 		)
 	}
 }
