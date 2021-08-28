@@ -47,4 +47,9 @@
   left: -50%;
   background-color: var(--light-aqua);
   transform: skew(25deg);
+  transition: 0.3s;
+}
+
+.input input:focus + i::before {
+  left: -5%;
 }
