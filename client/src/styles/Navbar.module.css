@@ -2,6 +2,16 @@
   position: relative;
 }
 
+.navbar::after {
+  content: "";
+  width: calc(100% - var(--mm) * 2);
+  display: block;
+  position: absolute;
+  left: var(--mm);
+  bottom: 0;
+  border-bottom: 1px dotted var(--aqua);
+}
+
 .navbar a {
   position: relative;
   color: var(--bright-blue);

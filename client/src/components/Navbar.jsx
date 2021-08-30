@@ -19,8 +19,8 @@ export const Navbar = () => {
 	// handlers
 	const logoutHandler = event => {
 		event.preventDefault()
-		history.push('/')
 		auth.logout()
+		history.push('/')
 	}
 
 	// return JSX

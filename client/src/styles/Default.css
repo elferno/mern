@@ -43,11 +43,13 @@ body {
   --bright-purple: rgb(212, 0, 212);
 
   --aqua: rgb(76, 99, 94);
+  --aqua-50: rgba(76, 99, 94, 0.5);
   --light-aqua: rgb(225, 247, 242);
 
   --font-B: normal 29px/23px Poppins, sans-serif;
   --font-M: normal 21px/15px Poppins, sans-serif;
   --font-S: normal 17px/13px Poppins, sans-serif;
+  --font-XS: normal 13px/9px Poppins, sans-serif;
 
   background-color: var(--dark);
 }

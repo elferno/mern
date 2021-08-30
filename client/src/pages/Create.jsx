@@ -26,7 +26,7 @@ export const Create = () => {
 	}
 	const createHandler = async event => {
 		// try create link
-		const _link = await httpRequest('/api/link', 'POST', {link})
+		const _link = await httpRequest('/api/links', 'POST', {link})
 		// if success
 		if(_link) {
 			// clear form fields

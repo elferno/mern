@@ -3,9 +3,9 @@ import config from 'config'
 import express from 'express'
 
 // import routers
-import LinkRouter from './routers/link.router.js'
-import UserRouter from './routers/user.router.js'
-import LoginRouter from './routers/login.router.js'
+import LinkRouter from './routes/link.routes.js'
+import UserRouter from './routes/user.routes.js'
+import LoginRouter from './routes/login.routes.js'
 
 // const
 const SERVER = {

@@ -3,27 +3,24 @@ import bcrypt from 'bcryptjs'
 import config from 'config'
 import jwt from 'jsonwebtoken'
 import db from '../../pestgre/db.js'
-import { response, validate } from './controller.handler.js'
+import { response } from '../response.handler.js'
 
 // handle actions
 class Controller {
 	async login(req, res) {
-		// validate data
-		if(!validate(req, res))
-			return false
-
 		// read data
 		const {login, pass} = req.body
 
 		// try to get this user from DB
 		const user = await db.query(
-			`SELECT * FROM "user" WHERE "login"=$1 LIMIT 1;`,
+			`SELECT * FROM users WHERE login=$1 LIMIT 1;`,
 			[login]
 		)
 
 		// check if password doesn't match OR no user selected
 		const userExists = user.rows.length
 		const passwordMatch = userExists && await bcrypt.compare(pass, user.rows[0].pass)
+		
 		if (!userExists || !passwordMatch)
 			return response(
 				res,

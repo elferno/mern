@@ -1,28 +1,24 @@
 // imports
 import bcrypt from 'bcryptjs'
 import db from '../../pestgre/db.js'
-import {response, validate} from './controller.handler.js'
+import { response } from '../response.handler.js'
 
 // handle actions
 class Controller {
 	async createUser(req, res) {
-		// check validation
-		if(!validate(req, res))
-			return false
-
 		// read data
 		const { login, pass } = req.body
 		const password = await bcrypt.hash(pass, 12)
 
 		// try add user to db
 		const new_user = await db.query(`
-			INSERT INTO "user" 
-				("login", "pass", "links") 
-				VALUES ($1, $2, $3) 
-				ON CONFLICT ("login") DO NOTHING 
+			INSERT INTO users 
+				(login, pass) 
+				VALUES ($1, $2) 
+				ON CONFLICT (login) DO NOTHING 
 				RETURNING *
 			;`,
-			[login, password, null]
+			[login, password]
 		)
 
 		// return new user: {id, login, pass (hashed), links} OR error
@@ -32,13 +28,13 @@ class Controller {
 			[400, {status: [`user with login '${login}' already exists`]}]
 		)
 	}
-	async getUser(req, res) {
+	async getUserById(req, res) {
 		// read id
 		const id = req.params.id
 
 		// get user by ID
 		const user = await db.query(
-			`SELECT "id", "login", "links" FROM "user" WHERE "id"=$1 LIMIT 1;`,
+			`SELECT id, login, links FROM users WHERE id=$1 LIMIT 1;`,
 			[id]
 		)
 
@@ -57,7 +53,7 @@ class Controller {
 
 		// update user
 		const user = await db.query(
-			`UPDATE "user" SET "login"=$2, "pass"=$3, "links"=$4 WHERE "id"=$1 RETURNING *;`,
+			`UPDATE users SET login=$2, pass=$3, links=$4 WHERE id=$1 RETURNING *;`,
 			[id, login, password, links]
 		)
 
@@ -74,7 +70,7 @@ class Controller {
 
 		// delete user
 		const user = await db.query(
-			`DELETE FROM "user" WHERE "id"=$1 RETURNING *;`,
+			`DELETE FROM users WHERE id=$1 RETURNING *;`,
 			[id]
 		)
 
