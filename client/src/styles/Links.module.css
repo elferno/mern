@@ -11,7 +11,7 @@
 .link_line {
   width: 100%;
   display: grid;
-  grid-template-columns: 50px 200px 1fr auto;
+  grid-template-columns: 50px 1fr 200px auto;
   grid-template-rows: 79px;
   font: var(--font-S);
   color: var(--bright-green);
@@ -70,6 +70,7 @@
   width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
   font: var(--font-XS);
   line-height: 35px;
   color: var(--bright-blue);

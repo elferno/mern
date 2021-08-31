@@ -18,60 +18,56 @@ const css = {...g_css, ...l_css}
 export const Links = () => {
 	// local state
 	const [links, setLinks] = useState(null)
+	const [deleting, setDeleting] = useState(null)
 
 	// hooks
 	const auth = useContext(AuthContext)
-	const { httpLoading, httpRequest, httpStatus } = useHttp()
+	const { httpLoading, httpRequest, httpStatus } = useHttp(auth.logout)
+
+	// local elements
+	const insertLinks = links =>
+		links.map((link, key) => 
+			<div key={key} className={css.link_line}>
+				<div className={css.link_id}>{key + 1}.</div>
+				<div><a href="{link.short}" target="_blank">{link.short}</a></div>
+				<div><a href="{link.origin}" target="_blank">{link.origin}</a></div>
+				<div className={css.link_prefs}>
+					<Button 
+						type="blue" 
+						click={() => deleteHandler(link.id)} 
+						disabled={deleting === link.id}
+					>
+						delete
+					</Button>
+				</div>
+			</div>
+		)
+
+	// handlers
+	const deleteHandler = async id => {
+		setDeleting(id)
+		const linksLeft = await httpRequest(`/api/links/${id}`, 'DELETE', null, {authorization: `Bearer ${auth.token}`})
+		setDeleting(null)
+		setLinks(linksLeft ? links.filter(link => link.id !== id) : null)
+	}
 
 	// effects
-	useEffect(() => {
-		const getLinks = async () => {
-			const _links = await httpRequest(
-				'/api/links',
-				'GET',
-				null,
-				{authorization: `Bearer ${auth.token}`}
-			)
-			if (_links && Array.isArray(_links))
-				setLinks(createLinks(_links))
+	useEffect(() => (
+		async () => {
+			const dbLinks = await httpRequest('/api/links', 'GET', null, {authorization: `Bearer ${auth.token}`})
+			if (dbLinks) setLinks(dbLinks)
 		}
-		getLinks()
-	}, [httpRequest, auth.token])
+	)(), [httpRequest, auth.token])
 
 	// return JSX
 	return (
 		<div className={css.container}>
 			<div className={css.links_container}>
 				{
-					(httpLoading && <p className="status_error">loading...</p>)
-					|| links
+					(httpLoading && links === null && <p className="status_error">loading...</p>)
+					|| (links !== null && insertLinks(links))
 					|| httpStatus
 				}
-			</div>
-		</div>
-	)
-}
-
-const createLinks = _links => {
-	return _links.map((link, key) => 
-		<div key={key} className={css.link_line}>
-			<div className={css.link_id}>
-				{link.id}.
-			</div>
-			<div><a href="{link.short}" target="_blank">{link.short}</a></div>
-			<div><a href="{link.short}" target="_blank">{link.origin}</a></div>
-			<div className={css.link_prefs}>
-				<Button 
-					type="red" 
-				>
-					view
-				</Button>
-
-				<Button 
-					type="blue"
-				>
-					delete
-				</Button>
 			</div>
 		</div>
 	)

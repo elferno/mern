@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-export const useHttp = () => {
+export const useHttp = (logout = false) => {
 
 	const [httpLoading, setHttpLoading] = useState(false)
 	const [httpStatus, sethttpStatus] = useState()
@@ -29,20 +29,24 @@ export const useHttp = () => {
 		})
 
 		// get server response data
-		const _response = await response.json()
-		const _status = response.status === 400 || response.status === 404
+		const serverResponse = await response.json()
+		const serverStatus = response.status > 399
 			? 'error'
 			: 'success'
 		;
 
+		// possible logout
+		if (logout && response.status === 401)
+			return logout()
+
 		// push response status to state
-		if (_response.status)
-			sethttpStatus(_response.status
-				.map((e, k) => <p key={k} className={`status_${_status}`}>{e}</p>)
+		if (serverResponse.status)
+			sethttpStatus(serverResponse.status
+				.map((e, k) => <p key={k} className={`status_${serverStatus}`}>{e}</p>)
 			)
 
 		// if server returns error -> break here
-		if (_status === 'error') {
+		if (serverStatus === 'error') {
 			setHttpLoading(false)
 			return false
 		}
@@ -55,8 +59,8 @@ export const useHttp = () => {
 
 		// if OK return response
 		setHttpLoading(false)
-		return _response
-	}, [])
+		return serverResponse
+	}, [logout])
 	
 	const clearHttpStatus = useCallback(() => sethttpStatus(null), []);
 

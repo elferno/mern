@@ -4,6 +4,7 @@ import css from '../styles/Input.module.css'
 export const Input = ({
 	id,
 	type,
+	value,
 	focus,
 	handler,
 	placeholder
@@ -14,6 +15,7 @@ export const Input = ({
 				type={type}
 				id={id}
 				name={id}
+				value={value}
 				autoComplete="off"
 				onFocus={focus}
 				onChange={handler}

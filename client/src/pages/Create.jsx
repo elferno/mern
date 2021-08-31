@@ -1,5 +1,8 @@
 // system
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+
+// context
+import { AuthContext } from '../context/AuthContext'
 
 // hooks
 import { useHttp } from '../hooks/http.hook.jsx'
@@ -15,10 +18,11 @@ const css = {...g_css, ...l_css}
 
 export const Create = () => {
 	// local state
-	const [link, setLink] = useState(null)
+	const [link, setLink] = useState('')
 
 	// hooks
-	const { httpLoading, httpRequest, httpStatus, clearHttpStatus } = useHttp()
+	const auth = useContext(AuthContext)
+	const { httpLoading, httpRequest, httpStatus, clearHttpStatus } = useHttp(auth.logout)
 
 	// handlers
 	const inputHandler = event => {
@@ -26,13 +30,10 @@ export const Create = () => {
 	}
 	const createHandler = async event => {
 		// try create link
-		const _link = await httpRequest('/api/links', 'POST', {link})
+		const newLink = await httpRequest('/api/links', 'POST', {link}, {authorization: `Bearer ${auth.token}`})
 		// if success
-		if(_link) {
-			// clear form fields
+		if(newLink)
 			event.target.parentNode.parentNode.reset()
-			console.log(_link)
-		}
 	}
 
 	return (
@@ -41,6 +42,7 @@ export const Create = () => {
 				<Input
 					type="text"
 					id="link"
+					value={link}
 					focus={clearHttpStatus}
 					handler={inputHandler}
 					placeholder="insert your link here"

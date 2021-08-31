@@ -51,9 +51,10 @@ export const Auth = () => {
 		// clear errors on new call
 		clearHttpStatus()
 		// get auth data
-		const _auth = await httpRequest('/api/login', 'POST', {...form})
+		const login = await httpRequest('/api/login', 'POST', {...form})
 		// authenticate user
- 		if (_auth) auth.login(_auth.token, _auth.userID)
+ 		if (login)
+			auth.login(login.token, login.userID)
 	}
 
 	// return JSX
@@ -64,6 +65,7 @@ export const Auth = () => {
 				<Input
 					type="text"
 					id="login"
+					value={form.login}
 					focus={clearHttpStatus}
 					handler={inputHandler}
 					placeholder="login"
@@ -71,6 +73,7 @@ export const Auth = () => {
 				<Input
 					type="text"
 					id="pass"
+					value={form.pass}
 					focus={clearHttpStatus}
 					handler={inputHandler}
 					placeholder="password"

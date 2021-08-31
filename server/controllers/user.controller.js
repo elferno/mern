@@ -1,7 +1,6 @@
 // imports
 import bcrypt from 'bcryptjs'
 import db from '../../pestgre/db.js'
-import { response } from '../response.handler.js'
 
 // handle actions
 class Controller {
@@ -11,22 +10,17 @@ class Controller {
 		const password = await bcrypt.hash(pass, 12)
 
 		// try add user to db
-		const new_user = await db.query(`
-			INSERT INTO users 
-				(login, pass) 
-				VALUES ($1, $2) 
-				ON CONFLICT (login) DO NOTHING 
-				RETURNING *
-			;`,
+		const new_user = await db.query(
+			`INSERT INTO users (login, pass) VALUES ($1, $2) ON CONFLICT (login) DO NOTHING RETURNING *;`,
 			[login, password]
 		)
 
+		// if no user found
+		if (new_user.rows.length === 0)
+			return res.status(400).json({status: [`user with login '${login}' already exists`]})
+		
 		// return new user: {id, login, pass (hashed), links} OR error
-		response(
-			res,
-			[201, new_user.rows[0]],
-			[400, {status: [`user with login '${login}' already exists`]}]
-		)
+		res.json(new_user.rows[0])
 	}
 	async getUserById(req, res) {
 		// read id
@@ -38,12 +32,12 @@ class Controller {
 			[id]
 		)
 
+		// if no user found
+		if (user.rows.length === 0)
+			return res.status(400).json({status: [`no user with ID '${id}' found`]})
+		
 		// return user: {id, login, pass (hashed), links}
-		response(
-			res,
-			[201, user.rows[0]],
-			[404, {status: [`no user with ID '${id}' found`]}]
-		)
+		res.json(user.rows[0])
 	}
 	async updateUser(req, res) {
 		// read data
@@ -57,12 +51,12 @@ class Controller {
 			[id, login, password, links]
 		)
 
+		// if no user found
+		if (user.rows.length === 0)
+			return res.status(400).json({status: [`no user with ID '${id}' found`]})
+		
 		// return updated user: {id, login, pass (hashed), links}
-		response(
-			res,
-			[201, user.rows[0]],
-			[404, {status: [`no user with ID '${id}' found`]}]
-		)
+		res.json(user.rows[0])
 	}
 	async deleteUser(req, res) {
 		// read data
@@ -74,12 +68,12 @@ class Controller {
 			[id]
 		)
 
+		// if no user found
+		if (user.rows.length === 0)
+			return res.status(400).json({status: [`no user with ID '${id}' found`]})
+		
 		// return deleted info: {id, login, pass (hashed), links}
-		response(
-			res,
-			[201, user.rows[0]],
-			[404, {status: [`no user with ID '${id}' found`]}]
-		)
+		res.json(user.rows[0])
 	}
 }
 

@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs'
 import config from 'config'
 import jwt from 'jsonwebtoken'
 import db from '../../pestgre/db.js'
-import { response } from '../response.handler.js'
 
 // handle actions
 class Controller {
@@ -22,10 +21,7 @@ class Controller {
 		const passwordMatch = userExists && await bcrypt.compare(pass, user.rows[0].pass)
 		
 		if (!userExists || !passwordMatch)
-			return response(
-				res,
-				[400, {status: [`wrong login or password`]}]
-			)
+			return res.status(400).json({status: [`wrong login or password`]})
 
 		// authorized: create token
 		const userID = user.rows[0].id
@@ -36,10 +32,7 @@ class Controller {
 		)
 
 		// return token
-		response(
-			res,
-			[200, {token, userID}]
-		)
+		res.json({token, userID})
 	}
 }
 
